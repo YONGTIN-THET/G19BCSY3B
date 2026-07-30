@@ -19,7 +19,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY docker/laravel/*.sh /usr/local/bin/
-COPY docker/laravel/supervisord.*.conf:/etc/supervisor/conf.d/supervisord.*.conf
+
+# ✅ កែសម្រួលត្រង់នេះ (ប្តូរពី : មកជា ដកឃ្លា Space និងកំណត់ Destination ជា Folder)
+COPY docker/laravel/supervisord.*.conf /etc/supervisor/conf.d/
 
 COPY --from=composer:2.9 /usr/bin/composer /usr/bin/composer
 COPY --from=node:latest /usr/local /usr/local
