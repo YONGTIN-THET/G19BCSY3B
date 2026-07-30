@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\API\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\GoogleOAuthController;
 
+Route::prefix('google')->group(function () {
+    Route::get('/oauth/redirect', [GoogleOAuthController::class, 'redirectToGoogle']);
+    Route::get('/oauth/callback', [GoogleOAuthController::class, 'handleGoogleCallback']);
+});
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/signin', [AuthController::class, 'signin']);
 Route::get('/verify/email/{id}/{hash}', [AuthController::class, 'verifyEmail'])

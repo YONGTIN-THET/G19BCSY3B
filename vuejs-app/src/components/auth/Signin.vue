@@ -39,6 +39,15 @@
               </div>
             </div>
           </form>
+
+          <!-- 1. បន្ថែមប៊ូតុង Google Sign In ត្រង់នេះ (រចនាប័ទ្ម AdminLTE) -->
+          <div class="social-auth-links text-center mt-2 mb-3">
+            <p>- OR -</p>
+            <button type="button" @click="handleGoogleLogin" class="btn btn-block btn-danger">
+              <i class="fab fa-google mr-2"></i> Sign in using Google
+            </button>
+          </div>
+
           <p class="mb-1">
             <router-link :to="{ name: 'auth.signup' }" class="text-center">Register a new membership</router-link>
           </p>
@@ -57,6 +66,10 @@ import { reactive } from "vue";
 import { apiSignIn } from "@/functions/api/auth";
 import { LoadingModal, MessageModal, CloseModal } from "@/functions/swal";
 import { useUserStore } from "@/stores/user";
+
+// 2. Import Google API function មកប្រើ
+import { getGoogleAuthUrl } from "@/functions/api/google-oauth";
+
 const router = useRouter();
 const userStore = useUserStore();
 
@@ -103,6 +116,22 @@ async function signIn() {
       return CloseModal();
     }
     return MessageModal({ icon: "error", title: "Error", text: data.message });
+  }
+}
+
+// 3. បន្ថែម Function សម្រាប់ Handle Google Login
+async function handleGoogleLogin() {
+  try {
+    LoadingModal('Connecting to Google...');
+    const url = await getGoogleAuthUrl();
+    CloseModal();
+    window.location.href = url; // Redirect ទៅកាន់ Google Login Page
+  } catch (error) {
+    MessageModal({ 
+      icon: "error", 
+      title: "Error", 
+      text: "Failed to connect to Google. Please try again." 
+    });
   }
 }
 </script>

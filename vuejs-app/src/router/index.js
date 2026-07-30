@@ -6,7 +6,7 @@ import Signup from '@/components/auth/Signup.vue';
 import VerifyEmail from '@/components/auth/VerifyEmail.vue';
 import Dashboard from '@/components/pages/Dashboard.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-
+import GoogleOAuthCallback from '@/components/google-oauth/GoogleOAuthCallback.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -56,6 +56,11 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)*',
       redirect: '/dashboard',
+    },
+    {
+      path: '/google/oauth/callback',
+      name: 'GoogleOAuthCallback',
+      component: GoogleOAuthCallback
     }
   ],
 })
