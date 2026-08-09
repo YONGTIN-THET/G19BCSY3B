@@ -1,9 +1,12 @@
+<script setup></script>
+
 <template>
-  <router-view />
+  <div class="wrapper"></div>
+  <router-view name="navbar"></router-view>
+  <router-view name="left_sidebar"></router-view>
+  <router-view></router-view>
+  <router-view name="right_sidebar"></router-view>
+  <router-view name="footer"></router-view>
 </template>
 
-<script setup>
-</script>
-
-<style scoped>
-</style>
+<style scoped></style>
